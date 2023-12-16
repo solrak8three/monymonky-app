@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:monymonky/core/di/locator.dart';
+import 'package:monymonky/routes/app_router.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -9,14 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'MonyMonky',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('MonyMonky'),
-        ),
-        body: const Center(child: Text('Gestiona tu dinero con Monymonky')),
-      ),
+      routerConfig: appRouter,
     );
   }
 }
