@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monymonky/features/account_management/2_presentation/bloc/account_bloc.dart';
+import 'package:monymonky/features/account_management/2_presentation/presentation.dart';
 
 
 class CreateAccountPage extends StatelessWidget {
@@ -64,8 +64,7 @@ class _Form extends StatelessWidget {
                   BlocProvider.of<AccountBloc>(context).add(
                     CreateAccountEvent(
                         name: accountName!,
-                        accountNumber: 'A001',
-                        balance: 1000
+                        balance: 1000,
                     ),
                   );
                 }

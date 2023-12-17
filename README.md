@@ -16,3 +16,8 @@ A new Flutter project.
 ## Getting Started
 
 Para crear una feature nueva se copia la carpeta __brick__ y se renombra para la nueva feature. Es un template. 
+
+## Recompilar isar 
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```

@@ -30,7 +30,7 @@ const AccountSchema = CollectionSchema(
     r'createdAt': PropertySchema(
       id: 2,
       name: r'createdAt',
-      type: IsarType.dateTime,
+      type: IsarType.string,
     ),
     r'name': PropertySchema(
       id: 3,
@@ -73,6 +73,7 @@ int _accountEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.accountNumber.length * 3;
+  bytesCount += 3 + object.createdAt.length * 3;
   bytesCount += 3 + object.name.length * 3;
   return bytesCount;
 }
@@ -85,7 +86,7 @@ void _accountSerialize(
 ) {
   writer.writeString(offsets[0], object.accountNumber);
   writer.writeDouble(offsets[1], object.balance);
-  writer.writeDateTime(offsets[2], object.createdAt);
+  writer.writeString(offsets[2], object.createdAt);
   writer.writeString(offsets[3], object.name);
 }
 
@@ -98,7 +99,7 @@ Account _accountDeserialize(
   final object = Account(
     accountNumber: reader.readString(offsets[0]),
     balance: reader.readDouble(offsets[1]),
-    createdAt: reader.readDateTimeOrNull(offsets[2]),
+    createdAt: reader.readString(offsets[2]),
     name: reader.readString(offsets[3]),
   );
   object.id = id;
@@ -117,7 +118,7 @@ P _accountDeserializeProp<P>(
     case 1:
       return (reader.readDouble(offset)) as P;
     case 2:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 3:
       return (reader.readString(offset)) as P;
     default:
@@ -509,63 +510,55 @@ extension AccountQueryFilter
     });
   }
 
-  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'createdAt',
-      ));
-    });
-  }
-
-  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'createdAt',
-      ));
-    });
-  }
-
   QueryBuilder<Account, Account, QAfterFilterCondition> createdAtEqualTo(
-      DateTime? value) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'createdAt',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition> createdAtGreaterThan(
-    DateTime? value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'createdAt',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition> createdAtLessThan(
-    DateTime? value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'createdAt',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Account, Account, QAfterFilterCondition> createdAtBetween(
-    DateTime? lower,
-    DateTime? upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -574,6 +567,75 @@ extension AccountQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'createdAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'createdAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'createdAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'createdAt',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'createdAt',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Account, Account, QAfterFilterCondition> createdAtIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'createdAt',
+        value: '',
       ));
     });
   }
@@ -896,9 +958,10 @@ extension AccountQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Account, Account, QDistinct> distinctByCreatedAt() {
+  QueryBuilder<Account, Account, QDistinct> distinctByCreatedAt(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'createdAt');
+      return query.addDistinctBy(r'createdAt', caseSensitive: caseSensitive);
     });
   }
 
@@ -930,7 +993,7 @@ extension AccountQueryProperty
     });
   }
 
-  QueryBuilder<Account, DateTime?, QQueryOperations> createdAtProperty() {
+  QueryBuilder<Account, String, QQueryOperations> createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'createdAt');
     });

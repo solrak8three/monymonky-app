@@ -8,12 +8,10 @@ abstract class AccountEvent extends Equatable {
 
 class CreateAccountEvent extends AccountEvent {
   final String name;
-  final String accountNumber;
   final double balance;
 
   const CreateAccountEvent({
     required this.name,
-    required this.accountNumber,
     required this.balance,
   });
 }

@@ -13,13 +13,13 @@ class Account {
 
   double balance;
 
-  DateTime? createdAt;
+  String createdAt;
 
   Account({
     required this.name,
     required this.accountNumber,
     required this.balance,
-    this.createdAt,
+    required this.createdAt,
   });
 
   @override

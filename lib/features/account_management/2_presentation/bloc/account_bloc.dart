@@ -1,16 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
+
 import 'package:monymonky/features/account_management/0_entity/account.dart';
-import 'package:monymonky/features/account_management/1_domain/repositories/account_repository.dart';
+import 'package:monymonky/features/account_management/1_domain/domain.dart';
 
 part 'account_event.dart';
 part 'account_state.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
-  final AccountRepository accountRepository;
+  final CreateAccountUseCase createAccountUseCase;
 
-  AccountBloc(this.accountRepository) : super(const AccountState()) {
+  AccountBloc(this.createAccountUseCase) : super(const AccountState()) {
     
     on<CreateAccountEvent>(_onCreateAccount);
   }
@@ -19,10 +21,11 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     try {
       final newAccount = Account(
           name: event.name,
-          accountNumber: event.accountNumber,
-          balance: event.balance as double,
+          balance: event.balance,
+          accountNumber: const Uuid().v4(),
+          createdAt: DateTime.now().toUtc().toIso8601String()
       );
-      await accountRepository.createAccount(newAccount);
+      await createAccountUseCase.call(newAccount);
       emit(
           state.copyWith(
             isSuccess: true,
