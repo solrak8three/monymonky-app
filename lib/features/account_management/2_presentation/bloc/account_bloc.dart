@@ -3,8 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:monymonky/features/account_management/0_entity/account.dart';
 import 'package:monymonky/features/account_management/1_domain/domain.dart';
 import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.dart';
-import 'package:uuid/uuid.dart';
-
 
 part 'account_event.dart';
 part 'account_state.dart';
