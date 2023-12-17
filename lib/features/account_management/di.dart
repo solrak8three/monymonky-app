@@ -18,10 +18,15 @@ void setupAccountManagement(GetIt locator) {
         () => CreateAccountUseCase(locator<AccountRepository>()),
   );
 
+  locator.registerFactory(
+        () => GetAllAccountsUseCase(locator<AccountRepository>()),
+  );
+
   // Registro de la agrupación de casos de uso, inyectandole sus casos de uso
   locator.registerFactory(
     () => AccountUseCases(
-      createAccountUseCase: locator<CreateAccountUseCase>()
+      createAccountUseCase: locator<CreateAccountUseCase>(),
+      getAllAccountsUseCase: locator<GetAllAccountsUseCase>()
     ),
   );
 

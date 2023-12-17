@@ -15,6 +15,7 @@ class AccountNameInput extends FormzInput<String, AccountNameInputError> {
     if (isValid || isPure) return null;
     if (displayError == AccountNameInputError.empty) return 'El campo es requerido';
     if (displayError == AccountNameInputError.length) return 'El nombre tiene menos de 4 carácteres';
+    return null;
   }
 
   // Override validator to handle validating a given input value.

@@ -18,9 +18,9 @@ class AccountDatasourceImpl implements AccountDatasource {
   }
 
   @override
-  Future<List<Account>> getAllAccounts() {
-    // TODO: implement getAllAccounts
-    throw UnimplementedError();
+  Future<List<Account>> getAllAccounts() async {
+    final isar = await locator.getAsync<Isar>();
+    return await isar.accounts.where().findAll();
   }
 
   @override

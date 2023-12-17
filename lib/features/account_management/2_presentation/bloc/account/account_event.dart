@@ -16,26 +16,6 @@ class CreateAccountEvent extends AccountEvent {
   });
 }
 
-class AddMoneyEvent extends AccountEvent {
-  final String accountNumber;
-  final double amount;
-
-  const AddMoneyEvent({
-    required this.accountNumber,
-    required this.amount,
-  });
-}
-
-class WithdrawMoneyEvent extends AccountEvent {
-  final String accountNumber;
-  final double amount;
-
-  const WithdrawMoneyEvent({
-    required this.accountNumber,
-    required this.amount,
-  });
-}
-
 class DeleteAccountEvent extends AccountEvent {
   final String accountNumber;
 
