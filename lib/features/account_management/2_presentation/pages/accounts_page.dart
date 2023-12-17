@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:monymonky/core/config/routes/routes.dart';
 
 
 class AccountsPage extends StatelessWidget {
@@ -27,10 +28,13 @@ class _AccountsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-                context.push('/create-account');
-              },
+              onPressed: () => context.push(AccountRoutes.createAccount),
               child: const Text('Crear cuenta'),
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () => context.push(AccountRoutes.accountList),
+              child: const Text('Listar Cuentas'),
             )
           ],
         )

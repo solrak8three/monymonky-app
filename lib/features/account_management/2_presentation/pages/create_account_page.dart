@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:monymonky/features/account_management/2_presentation/presentation.dart';
+import 'package:monymonky/core/shared/widgets/widgets.dart';
+import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.dart';
 
 
 class CreateAccountPage extends StatelessWidget {
@@ -13,7 +14,10 @@ class CreateAccountPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Create account'),
       ),
-      body: const _AccountsView(),
+      body: BlocProvider(
+        create: (context) => AccountFormCubit(),
+          child: const _AccountsView()
+      ),
     );
   }
 }
@@ -23,17 +27,75 @@ class _AccountsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _Form()
-          ],
-        )
+    return const SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 50),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 20,),
+
+              FlutterLogo(size: 100),
+
+              SizedBox(height: 20,),
+
+              _RegisterForm()
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
+class _RegisterForm extends StatelessWidget {
+  const _RegisterForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final accountFormCubit = context.watch<AccountFormCubit>();
+    final accountName = accountFormCubit.state.nameInput;
+    final accountBalance = accountFormCubit.state.balanceInput;
+
+    return Form(
+      child: Column(
+        children: [
+
+          CustomTextFormField(
+            label: 'Nombre de cuenta',
+            prefixIcon: Icons.account_balance,
+            onChanged: accountFormCubit.accountNameChanged,
+            errorMessage: accountName.errorMessage,
+          ),
+
+          const SizedBox(height: 20,),
+
+          CustomSlider(
+            onSliderChange: accountFormCubit.accountBalanceChanged,
+          ),
+
+          const SizedBox(height: 20,),
+
+          FilledButton.tonalIcon(
+            icon: const Icon(Icons.save),
+            label: const Text('Crear Cuenta'),
+            onPressed: () {
+              BlocProvider.of<AccountBloc>(context).add(
+                CreateAccountEvent(
+                  name: accountName.value,
+                  balance: accountBalance.value,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/*
 
 class _Form extends StatelessWidget {
   const _Form();
@@ -53,7 +115,6 @@ class _Form extends StatelessWidget {
               onSaved: (value) {
                 accountName = value;
               },
-              // Validador si es necesario...
             ),
             const SizedBox(height: 40),
             // Otros campos del formulario...
@@ -77,3 +138,4 @@ class _Form extends StatelessWidget {
     );
   }
 }
+*/
