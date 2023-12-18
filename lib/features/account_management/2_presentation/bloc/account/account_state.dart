@@ -43,23 +43,29 @@ class AccountState extends Equatable {
   }
 }
 
-class AccountsInitial extends AccountState {}
+class AccountsInitialState extends AccountState {}
 
-class AccountsLoading extends AccountState {}
+class AccountsLoadingState extends AccountState {}
 
-class AccountsLoaded extends AccountState {
+class AccountCreatedState extends AccountState {
+
+}
+
+class AccountsLoadedState extends AccountState {
   final List<Account> accounts;
 
-  const AccountsLoaded(this.accounts);
+  const AccountsLoadedState({
+    required this.accounts,
+  });
 
   @override
   List<Object> get props => [accounts];
 }
 
-class AccountsError extends AccountState {
+class AccountsErrorState extends AccountState {
   final String message;
 
-  const AccountsError(this.message);
+  const AccountsErrorState(this.message);
 
   @override
   List<Object> get props => [message];

@@ -14,7 +14,7 @@ class AccountDatasourceImpl implements AccountDatasource {
   @override
   Future<void> createAccount(Account newAccount) async {
     final isar = await locator.getAsync<Isar>();
-    isar.writeTxn(() => isar.accounts.put(newAccount));
+    await isar.writeTxn(() => isar.accounts.put(newAccount));
   }
 
   @override

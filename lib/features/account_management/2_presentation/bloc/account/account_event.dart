@@ -18,14 +18,16 @@ class CreateAccountEvent extends AccountEvent {
 
 class DeleteAccountEvent extends AccountEvent {
   final String accountNumber;
-
-  const DeleteAccountEvent(this.accountNumber);
+  const DeleteAccountEvent({required this.accountNumber});
 }
 
 class GetAccountEvent extends AccountEvent {
   final String accountNumber;
-
-  const GetAccountEvent(this.accountNumber);
+  const GetAccountEvent({required this.accountNumber});
 }
 
 class GetAllAccountsEvent extends AccountEvent {}
+
+class UpdateAccountEvent extends AccountEvent {}
+
+class ResetAccountEvent extends AccountEvent {}

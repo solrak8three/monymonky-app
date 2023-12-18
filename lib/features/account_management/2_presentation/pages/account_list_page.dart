@@ -10,36 +10,23 @@ class AccountListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account List'),
+        title: const Text('Cuentas'),
       ),
       body: const _AccountListView(),
     );
   }
 }
 
-class _AccountListView extends StatefulWidget {
+class _AccountListView extends StatelessWidget {
   const _AccountListView();
-
-  @override
-  State<_AccountListView> createState() => _AccountListViewState();
-}
-
-class _AccountListViewState extends State<_AccountListView> {
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<AccountBloc>().add(GetAllAccountsEvent());
-  }
-
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        if (state is AccountsLoading) {
+        if (state is AccountsLoadingState) {
           return const CircularProgressIndicator();
-        } else if (state is AccountsLoaded) {
+        } else if (state is AccountsLoadedState) {
           return ListView.builder(
             itemCount: state.accounts.length,
             itemBuilder: (context, index) {
@@ -50,7 +37,7 @@ class _AccountListViewState extends State<_AccountListView> {
               );
             },
           );
-        } else if (state is AccountsError) {
+        } else if (state is AccountsErrorState) {
           return Text('Error: ${state.message}');
         }
         return Container(); // Estado inicial o desconocido

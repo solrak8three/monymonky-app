@@ -11,7 +11,7 @@ class AccountsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Accounts'),
+        title: const Text('Cuentas'),
       ),
       body: const _AccountsView(),
     );

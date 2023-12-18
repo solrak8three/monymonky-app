@@ -5,6 +5,12 @@ import 'package:monymonky/features/account_management/3_infrastructure/infrastru
 
 // Registro de Datasource, Repositorio y Caso de Uso
 void setupAccountManagement(GetIt locator) {
+  _registerRepositories(locator);
+  _registerUseCases(locator);
+  _registerBloc(locator);
+}
+
+void _registerRepositories(GetIt locator) {
   // Registro del datasource
   locator.registerSingleton<AccountDatasource>(AccountDatasourceImpl());
 
@@ -12,15 +18,12 @@ void setupAccountManagement(GetIt locator) {
   locator.registerSingleton<AccountRepository>(
       AccountRepositoryImpl(locator<AccountDatasource>())
   );
+}
 
+void _registerUseCases(GetIt locator) {
   // Registro del caso de uso particular inyectandole su repository
-  locator.registerFactory(
-        () => CreateAccountUseCase(locator<AccountRepository>()),
-  );
-
-  locator.registerFactory(
-        () => GetAllAccountsUseCase(locator<AccountRepository>()),
-  );
+  locator.registerFactory(() => CreateAccountUseCase(locator<AccountRepository>()));
+  locator.registerFactory(() => GetAllAccountsUseCase(locator<AccountRepository>()));
 
   // Registro de la agrupación de casos de uso, inyectandole sus casos de uso
   locator.registerFactory(
@@ -29,9 +32,9 @@ void setupAccountManagement(GetIt locator) {
       getAllAccountsUseCase: locator<GetAllAccountsUseCase>()
     ),
   );
+}
 
+void _registerBloc(GetIt locator) {
   // Registro del bloc inyectandole el grupo de casos de uso
-  locator.registerFactory(
-    () => AccountBloc(locator<AccountUseCases>()),
-  );
+  locator.registerFactory(() => AccountBloc(locator<AccountUseCases>()));
 }

@@ -8,6 +8,7 @@ import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.d
 
 class CreateAccountPage extends StatelessWidget {
   static const name = 'create_account_page';
+
   const CreateAccountPage({super.key});
 
   @override
@@ -17,7 +18,7 @@ class CreateAccountPage extends StatelessWidget {
         title: const Text('Create account'),
       ),
       body: BlocProvider(
-        create: (context) => AccountFormCubit(),
+          create: (context) => AccountFormCubit(),
           child: const _AccountsView()
       ),
     );
@@ -55,85 +56,47 @@ class _RegisterForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final accountFormCubit = context.watch<AccountFormCubit>();
     final accountName = accountFormCubit.state.nameInput;
     final accountBalance = accountFormCubit.state.balanceInput;
 
-    return Form(
-      child: Column(
-        children: [
-
-          CustomTextFormField(
-            label: 'Nombre de cuenta',
-            prefixIcon: Icons.account_balance,
-            onChanged: accountFormCubit.accountNameChanged,
-            errorMessage: accountName.errorMessage,
-          ),
-
-          const SizedBox(height: 20,),
-
-          CustomSlider(
-            onSliderChange: accountFormCubit.accountBalanceChanged,
-          ),
-
-          const SizedBox(height: 20,),
-
-          FilledButton.tonalIcon(
-            icon: const Icon(Icons.save),
-            label: const Text('Crear Cuenta'),
-            onPressed: () {
-              BlocProvider.of<AccountBloc>(context).add(
-                CreateAccountEvent(
-                  name: accountName.value,
-                  balance: accountBalance.value,
-                ),
-              );
-              context.push(AccountRoutes.accountList);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/*
-
-class _Form extends StatelessWidget {
-  const _Form();
-
-  @override
-  Widget build(BuildContext context) {
-    String? accountName;
-    final _formKey = GlobalKey<FormState>();
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+    return BlocListener<AccountBloc, AccountState>(
+      listener: (context, state) {
+        if (state is AccountCreatedState) {
+          context.read<AccountBloc>().add(GetAllAccountsEvent());
+          context.push(AccountRoutes.accountList);
+        }
+      },
       child: Form(
-        key: _formKey,
         child: Column(
-          children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Nombre de la cuenta'),
-              onSaved: (value) {
-                accountName = value;
-              },
+          children: [
+
+            CustomTextFormField(
+              label: 'Nombre de cuenta',
+              prefixIcon: Icons.account_balance,
+              onChanged: accountFormCubit.accountNameChanged,
+              errorMessage: accountName.errorMessage,
             ),
-            const SizedBox(height: 40),
-            // Otros campos del formulario...
-            ElevatedButton(
+
+            const SizedBox(height: 20,),
+
+            CustomSlider(
+              onSliderChange: accountFormCubit.accountBalanceChanged,
+            ),
+
+            const SizedBox(height: 20,),
+
+            FilledButton.tonalIcon(
+              icon: const Icon(Icons.save),
+              label: const Text('Crear Cuenta'),
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState?.save();
-                  BlocProvider.of<AccountBloc>(context).add(
-                    CreateAccountEvent(
-                        name: accountName!,
-                        balance: 1000,
-                    ),
-                  );
-                }
+                BlocProvider.of<AccountBloc>(context).add(
+                  CreateAccountEvent(
+                    name: accountName.value,
+                    balance: accountBalance.value,
+                  ),
+                );
               },
-              child: const Text('Crear Cuenta'),
             ),
           ],
         ),
@@ -141,4 +104,3 @@ class _Form extends StatelessWidget {
     );
   }
 }
-*/
