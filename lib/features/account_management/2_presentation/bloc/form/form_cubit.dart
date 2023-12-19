@@ -6,9 +6,13 @@ import 'package:monymonky/features/account_management/2_presentation/presentatio
 part 'form_state.dart';
 
 class AccountFormCubit extends Cubit<AccountFormState> {
-  AccountFormCubit() : super(const AccountFormState());
+
+  final AccountBloc accountBloc;
+
+  AccountFormCubit(this.accountBloc) : super(const AccountFormState());
 
   void onSubmit() {
+    // Emitir un loading
     emit(
         state.copyWith(
           formStatus: FormStatus.validating,
@@ -16,7 +20,13 @@ class AccountFormCubit extends Cubit<AccountFormState> {
           balanceInput: AccountBalanceInput.dirty(balance: state.balanceInput.value),
         )
     );
-    print('Submit Cubit: $state');
+
+    accountBloc.add(CreateAccountEvent(
+        name: state.nameInput.value,
+        balance: state.balanceInput.value,
+    ));
+
+   // TODO: Hacer un reset del formulario
   }
 
   void accountNameChanged(String value) {

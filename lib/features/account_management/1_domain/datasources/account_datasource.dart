@@ -12,5 +12,5 @@ abstract class AccountDatasource {
 
   Future<void> createAccount(Account newAccount);
 
-  Future<void> deleteAccount(int accountId);
+  Future<bool> deleteAccount(String accountNumber);
 }

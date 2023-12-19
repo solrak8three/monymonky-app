@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.dart';
 
 class AccountListPage extends StatelessWidget {
@@ -30,10 +31,26 @@ class _AccountListView extends StatelessWidget {
           return ListView.builder(
             itemCount: state.accounts.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(state.accounts[index].name),
-                subtitle: Text('${state.accounts[index].balance}€'),
-                // Otros datos de la cuenta...
+              return Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                        title: Text(state.accounts[index].name),
+                        subtitle: Text('${state.accounts[index].balance}€'),
+                        // Otros datos de la cuenta...
+                      ),
+                    ),
+                    IconButton.outlined(
+                        onPressed: () {
+                          locator<AccountBloc>()
+                              .add(DeleteAccountEvent(accountNumber: state.accounts[index].accountNumber));
+                        },
+                        icon: const Icon(Icons.delete_forever),
+                    ),
+                  ],
+                ),
               );
             },
           );

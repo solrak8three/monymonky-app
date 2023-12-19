@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:monymonky/core/config/routes/account_routes.dart';
+import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/core/shared/widgets/widgets.dart';
 import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.dart';
 
@@ -18,7 +19,7 @@ class CreateAccountPage extends StatelessWidget {
         title: const Text('Create account'),
       ),
       body: BlocProvider(
-          create: (context) => AccountFormCubit(),
+          create: (context) => AccountFormCubit(locator<AccountBloc>()),
           child: const _AccountsView()
       ),
     );
@@ -89,14 +90,7 @@ class _RegisterForm extends StatelessWidget {
             FilledButton.tonalIcon(
               icon: const Icon(Icons.save),
               label: const Text('Crear Cuenta'),
-              onPressed: () {
-                BlocProvider.of<AccountBloc>(context).add(
-                  CreateAccountEvent(
-                    name: accountName.value,
-                    balance: accountBalance.value,
-                  ),
-                );
-              },
+              onPressed: accountFormCubit.onSubmit,
             ),
           ],
         ),

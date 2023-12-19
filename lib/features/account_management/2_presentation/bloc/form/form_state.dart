@@ -30,5 +30,7 @@ class AccountFormState extends Equatable {
 
   @override
   List<Object> get props => [formStatus, nameInput, balanceInput];
-
 }
+
+// TODO...
+// class AccountFormResetState extends AccountFormState {}

@@ -24,9 +24,10 @@ class AccountDatasourceImpl implements AccountDatasource {
   }
 
   @override
-  Future<void> deleteAccount(int accountId) {
-    // TODO: implement deleteAccount
-    throw UnimplementedError();
+  Future<bool> deleteAccount(String accountNumber) async {
+    // TODO: Error al eliminar.
+    final isar = await locator.getAsync<Isar>();
+    return await isar.accounts.deleteByAccountNumber(accountNumber);
   }
 
   @override

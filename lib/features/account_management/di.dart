@@ -24,17 +24,19 @@ void _registerUseCases(GetIt locator) {
   // Registro del caso de uso particular inyectandole su repository
   locator.registerFactory(() => CreateAccountUseCase(locator<AccountRepository>()));
   locator.registerFactory(() => GetAllAccountsUseCase(locator<AccountRepository>()));
+  locator.registerFactory(() => DeleteAccountUseCase(locator<AccountRepository>()));
 
   // Registro de la agrupación de casos de uso, inyectandole sus casos de uso
   locator.registerFactory(
     () => AccountUseCases(
       createAccountUseCase: locator<CreateAccountUseCase>(),
-      getAllAccountsUseCase: locator<GetAllAccountsUseCase>()
+      getAllAccountsUseCase: locator<GetAllAccountsUseCase>(),
+      deleteAccountUseCase: locator<DeleteAccountUseCase>(),
     ),
   );
 }
 
 void _registerBloc(GetIt locator) {
   // Registro del bloc inyectandole el grupo de casos de uso
-  locator.registerFactory(() => AccountBloc(locator<AccountUseCases>()));
+  locator.registerLazySingleton(() => AccountBloc(locator<AccountUseCases>()));
 }

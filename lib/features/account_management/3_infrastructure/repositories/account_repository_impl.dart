@@ -34,7 +34,7 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<void> deleteAccount(int accountId) {
-    return datasource.deleteAccount(accountId);
+  Future<bool> deleteAccount(String accountNumber) {
+    return datasource.deleteAccount(accountNumber);
   }
 }

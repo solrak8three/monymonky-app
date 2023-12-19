@@ -16,6 +16,19 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     on<CreateAccountEvent>(_onCreateAccount);
 
     on<GetAllAccountsEvent>(_onGetAllAccounts);
+
+    on<DeleteAccountEvent>(_onDeleteAccount);
+
+  }
+
+  void _onDeleteAccount(DeleteAccountEvent event, Emitter<AccountState> emit) async {
+    try {
+      emit(AccountsLoadingState());
+      await accountUseCases.deleteAccountUseCase.call(event.accountNumber);
+      add(GetAllAccountsEvent());
+    } catch (error) {
+      print('Error');
+    }
   }
 
   void _onGetAllAccounts(GetAllAccountsEvent event, Emitter<AccountState> emit) async {
