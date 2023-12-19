@@ -10,5 +10,4 @@ class DeleteAccountUseCase {
   Future<bool> call(String accountNumber) async {
     return await accountRepository.deleteAccount(accountNumber);
   }
-
 }

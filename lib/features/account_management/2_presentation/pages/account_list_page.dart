@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.dart';
+import 'package:monymonky/features/account_management/2_presentation/widgets/widgets.dart';
 
 class AccountListPage extends StatelessWidget {
   static const name = 'account_list_page';
@@ -26,7 +27,7 @@ class _AccountListView extends StatelessWidget {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
         if (state is AccountsLoadingState) {
-          return const CircularProgressIndicator();
+          return const CustomCircularProgressIndicator();
         } else if (state is AccountsLoadedState) {
           return ListView.builder(
             itemCount: state.accounts.length,

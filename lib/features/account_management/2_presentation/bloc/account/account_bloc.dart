@@ -24,8 +24,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onDeleteAccount(DeleteAccountEvent event, Emitter<AccountState> emit) async {
     try {
       emit(AccountsLoadingState());
-      await accountUseCases.deleteAccountUseCase.call(event.accountNumber);
-      add(GetAllAccountsEvent());
+      final deleted = await accountUseCases.deleteAccountUseCase.call(event.accountNumber);
+      if (deleted) add(GetAllAccountsEvent());
     } catch (error) {
       print('Error');
     }
@@ -34,6 +34,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   void _onGetAllAccounts(GetAllAccountsEvent event, Emitter<AccountState> emit) async {
     try {
       emit(AccountsLoadingState());
+      await Future.delayed(const Duration(seconds: 1));
       List<Account> accounts = await accountUseCases.getAllAccountsUseCase.call();
       emit(AccountsLoadedState(accounts: accounts));
     } catch(error) {
