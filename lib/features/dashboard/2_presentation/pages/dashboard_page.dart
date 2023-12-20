@@ -12,6 +12,14 @@ class DashboardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MonyMonky'),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              context.go(AccountRoutes.accounts);
+            },
+            child: const Icon(Icons.settings),
+          )
+        ],
       ),
       body: const _DashboardView(),
     );
@@ -23,16 +31,11 @@ class _DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                context.go(AccountRoutes.accounts);
-              },
-              child: const Text('Accounts'),
-          )
+          Text('Dashboard')
         ],
       )
     );
