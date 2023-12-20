@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:monymonky/core/config/config.dart';
 import 'package:monymonky/core/di/locator.dart';
 
 import 'package:monymonky/features/account_management/2_presentation/presentation.dart';
+import 'package:monymonky/features/account_management/router/router.dart';
 
 
 class CreateAccountPage extends StatelessWidget {

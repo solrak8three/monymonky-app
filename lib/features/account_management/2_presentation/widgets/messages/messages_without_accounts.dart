@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:monymonky/core/config/routes/routes.dart';
+import 'package:monymonky/features/account_management/router/router.dart';
 
 class MessageWithoutAccounts extends StatelessWidget {
   const MessageWithoutAccounts({super.key});

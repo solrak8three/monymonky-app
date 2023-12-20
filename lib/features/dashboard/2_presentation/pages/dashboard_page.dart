@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:monymonky/features/account_management/router/router.dart';
 
 class DashboardPage extends StatelessWidget {
   static const name = 'dashboard_page';
@@ -28,7 +29,7 @@ class _DashboardView extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                context.push('/accounts');
+                context.go(AccountRoutes.accounts);
               },
               child: const Text('Accounts'),
           )

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:monymonky/core/config/routes/routes.dart';
 import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/core/widgets/navigation/custom_leading.dart';
 import 'package:monymonky/features/account_management/2_presentation/bloc/account/account_bloc.dart';
-
+import 'package:monymonky/features/account_management/router/router.dart';
+import 'package:monymonky/features/dashboard/router/router.dart';
 
 class AccountsPage extends StatelessWidget {
   static const name = 'accounts_page';
