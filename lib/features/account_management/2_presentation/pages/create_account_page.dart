@@ -17,6 +17,10 @@ class CreateAccountPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create account'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_sharp),
+          onPressed: () => context.go(AccountRoutes.accounts),
+        ),
       ),
       body: BlocProvider(
           create: (context) => AccountFormCubit(locator<AccountBloc>()),
@@ -89,7 +93,7 @@ class _RegisterForm extends StatelessWidget {
 
             FilledButton.tonalIcon(
               icon: const Icon(Icons.save),
-              label: const Text('Crear Cuenta'),
+              label: const Text('Guardar'),
               onPressed: accountFormCubit.onSubmit,
             ),
           ],

@@ -36,6 +36,10 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       emit(AccountsLoadingState());
       await Future.delayed(const Duration(seconds: 1));
       List<Account> accounts = await accountUseCases.getAllAccountsUseCase.call();
+      if (accounts.isEmpty) {
+        emit(EmptyAccountListState());
+        return;
+      }
       emit(AccountsLoadedState(accounts: accounts));
     } catch(error) {
       emit(AccountsErrorState(error.toString()));

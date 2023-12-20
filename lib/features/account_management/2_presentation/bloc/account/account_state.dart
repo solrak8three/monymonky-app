@@ -47,9 +47,9 @@ class AccountsInitialState extends AccountState {}
 
 class AccountsLoadingState extends AccountState {}
 
-class AccountCreatedState extends AccountState {
+class AccountCreatedState extends AccountState {}
 
-}
+class EmptyAccountListState extends AccountState {}
 
 class AccountsLoadedState extends AccountState {
   final List<Account> accounts;
