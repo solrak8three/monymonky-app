@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:monymonky/core/config/config.dart';
+import 'package:monymonky/core/widgets/navigation/custom_leading.dart';
 import 'package:monymonky/features/account_management/2_presentation/presentation.dart';
 
 class AccountListPage extends StatelessWidget {
@@ -14,10 +14,7 @@ class AccountListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuentas'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_sharp),
-          onPressed: () => context.go(AccountRoutes.accounts),
-        ),
+        leading: const CustomLeading(route: AccountRoutes.accounts),
       ),
       body: const Padding(
         padding: EdgeInsets.all(25),
