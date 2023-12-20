@@ -1,0 +1,1 @@
+export 'local/isar_config.dart';

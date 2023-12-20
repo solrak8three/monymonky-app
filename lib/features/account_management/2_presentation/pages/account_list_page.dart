@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:monymonky/core/config/routes/routes.dart';
-import 'package:monymonky/features/account_management/2_presentation/bloc/bloc.dart';
-import 'package:monymonky/features/account_management/2_presentation/widgets/widgets.dart';
+
+import 'package:monymonky/core/config/config.dart';
+import 'package:monymonky/features/account_management/2_presentation/presentation.dart';
 
 class AccountListPage extends StatelessWidget {
   static const name = 'account_list_page';
