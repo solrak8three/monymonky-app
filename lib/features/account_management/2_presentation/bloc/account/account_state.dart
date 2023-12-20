@@ -62,6 +62,17 @@ class AccountsLoadedState extends AccountState {
   List<Object> get props => [accounts];
 }
 
+class AccountLoadedState extends AccountState {
+  final Account account;
+
+  const AccountLoadedState({
+    required this.account,
+  });
+
+  @override
+  List<Object> get props => [account];
+}
+
 class AccountsErrorState extends AccountState {
   final String message;
 

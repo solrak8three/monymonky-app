@@ -15,7 +15,10 @@ class AccountListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuentas'),
-        leading: const CustomLeading(route: AccountRoutes.accounts),
+        leading: CustomLeading(
+          route: AccountRoutes.accounts,
+          navigationStrategy: GoNavigation(),
+        ),
       ),
       body: const Padding(
         padding: EdgeInsets.all(25),

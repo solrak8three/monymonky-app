@@ -25,6 +25,7 @@ void _registerUseCases(GetIt locator) {
   locator.registerFactory(() => CreateAccountUseCase(locator<AccountRepository>()));
   locator.registerFactory(() => GetAllAccountsUseCase(locator<AccountRepository>()));
   locator.registerFactory(() => DeleteAccountUseCase(locator<AccountRepository>()));
+  locator.registerFactory(() => GetAccountUseCase(locator<AccountRepository>()));
 
   // Registro de la agrupación de casos de uso, inyectandole sus casos de uso
   locator.registerFactory(
@@ -32,6 +33,7 @@ void _registerUseCases(GetIt locator) {
       createAccountUseCase: locator<CreateAccountUseCase>(),
       getAllAccountsUseCase: locator<GetAllAccountsUseCase>(),
       deleteAccountUseCase: locator<DeleteAccountUseCase>(),
+      getAccountUseCase: locator<GetAccountUseCase>(),
     ),
   );
 }

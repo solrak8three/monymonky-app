@@ -16,7 +16,10 @@ class AccountsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cuentas'),
-        leading: const CustomLeading(route: DashboardRoutes.dashboard),
+        leading: CustomLeading(
+          route: DashboardRoutes.dashboard,
+          navigationStrategy: GoNavigation(),
+        ),
       ),
       body: const _AccountsView(),
     );
@@ -28,6 +31,8 @@ class _AccountsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accountBloc= locator<AccountBloc>();
+
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +44,7 @@ class _AccountsView extends StatelessWidget {
             const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-                locator<AccountBloc>().add(GetAllAccountsEvent());
+                accountBloc.add(GetAllAccountsEvent());
                 context.push(AccountRoutes.accountList);
               },
               child: const Text('Listar Cuentas'),

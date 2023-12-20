@@ -22,8 +22,9 @@ List<GoRoute> getAccountManagementRoutes() => [
     path: InternalAccountRoutes.editACcount,
     name: EditAccountPage.name,
     builder: (context, state) {
-      final String accountNumber = state.pathParameters['accountNumber'] ?? '';
-      return EditAccountPage(accountNumber: accountNumber,);
+      //final String accountNumber = state.pathParameters['accountNumber'] ?? '';
+      //return EditAccountPage(accountNumber: accountNumber,);
+      return const EditAccountPage();
     },
   ),
 ];

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/features/account_management/0_entity/entity.dart';
+import 'package:monymonky/features/account_management/2_presentation/presentation.dart';
 import 'package:monymonky/features/account_management/router/router.dart';
 
 class AccountCard extends StatelessWidget {
@@ -13,9 +15,12 @@ class AccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accountBloc = locator<AccountBloc>();
+
     return GestureDetector(
       onTap: () {
-        context.go(AccountRoutes.editACcount(account.accountNumber));
+        context.push(AccountRoutes.editACcount);
+        accountBloc.add(GetAccountEvent(accountNumber: account.accountNumber));
       },
       child: Card(
         child: Padding(

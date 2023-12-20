@@ -4,7 +4,7 @@ abstract class AccountRepository {
 
   Future<List<Account>> getAllAccounts();
 
-  Future<Account?> getAccountById(int accountId);
+  Future<Account?> getAccount(String accountNumber);
 
   Future<void> depositToAccount(int accountId, double money);
 

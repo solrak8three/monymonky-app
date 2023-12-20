@@ -12,7 +12,7 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountFormCubit = context.watch<AccountFormCubit>();
     final accountName = accountFormCubit.state.nameInput;
-    final accountBalance = accountFormCubit.state.balanceInput;
+    // final accountBalance = accountFormCubit.state.balanceInput;
 
     return BlocListener<AccountBloc, AccountState>(
       listener: (context, state) {

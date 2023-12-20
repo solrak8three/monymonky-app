@@ -19,6 +19,23 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
 
     on<DeleteAccountEvent>(_onDeleteAccount);
 
+    on<GetAccountEvent>(_onGetAccount);
+
+  }
+
+  void _onGetAccount(GetAccountEvent event, Emitter<AccountState> emit) async {
+    emit(AccountsLoadingState());
+    try {
+      final accountNumber = event.accountNumber;
+      final account = await accountUseCases.getAccountUseCase.call(accountNumber);
+      if (account != null) {
+        emit(AccountLoadedState(account: account));
+        return;
+      }
+      emit(const AccountsErrorState('No se encontro esa cuenta!'));
+    } catch(error) {
+      print('Error getAccount');
+    }
   }
 
   void _onDeleteAccount(DeleteAccountEvent event, Emitter<AccountState> emit) async {

@@ -6,9 +6,9 @@ import 'package:monymonky/features/account_management/1_domain/datasources/accou
 class AccountDatasourceImpl implements AccountDatasource {
 
   @override
-  Future<Account?> getAccountById(int accountId) {
-    // TODO: implement getAccountById
-    throw UnimplementedError();
+  Future<Account?> getAccount(String accountNumber) async {
+    final isar = await locator.getAsync<Isar>();
+    return await isar.accounts.getByAccountNumber(accountNumber);
   }
 
   @override

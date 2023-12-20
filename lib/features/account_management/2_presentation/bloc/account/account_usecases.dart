@@ -4,10 +4,12 @@ class AccountUseCases {
   final CreateAccountUseCase createAccountUseCase;
   final GetAllAccountsUseCase getAllAccountsUseCase;
   final DeleteAccountUseCase deleteAccountUseCase;
+  final GetAccountUseCase getAccountUseCase;
 
   AccountUseCases({
     required this.createAccountUseCase,
     required this.getAllAccountsUseCase,
     required this.deleteAccountUseCase,
+    required this.getAccountUseCase,
   });
 }

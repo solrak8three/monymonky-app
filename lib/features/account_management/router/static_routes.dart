@@ -5,7 +5,7 @@ class InternalAccountRoutes {
 
   static const String accountList = '/account-list';
 
-  static const String editACcount = '/edit-account/:accountNumber';
+  static const String editACcount = '/edit-account';
 }
 
 class AccountRoutes {
@@ -15,5 +15,5 @@ class AccountRoutes {
 
   static const String accountList = InternalAccountRoutes.accountList;
 
-  static String editACcount(String accountNumber) => '/edit-account/$accountNumber';
+  static const String editACcount = InternalAccountRoutes.editACcount;
 }

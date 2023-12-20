@@ -14,8 +14,8 @@ class AccountRepositoryImpl implements AccountRepository {
   }
 
   @override
-  Future<Account?> getAccountById(int accountId) {
-    return datasource.getAccountById(accountId);
+  Future<Account?> getAccount(String accountNumber) {
+    return datasource.getAccount(accountNumber);
   }
 
   @override
