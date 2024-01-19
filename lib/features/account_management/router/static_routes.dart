@@ -6,6 +6,8 @@ class InternalAccountRoutes {
   static const String accountList = '/account-list';
 
   static const String editACcount = '/edit-account';
+
+  static const String notion = '/notion';
 }
 
 class AccountRoutes {
@@ -16,4 +18,6 @@ class AccountRoutes {
   static const String accountList = InternalAccountRoutes.accountList;
 
   static const String editACcount = InternalAccountRoutes.editACcount;
+
+  static const String notion = InternalAccountRoutes.notion;
 }
