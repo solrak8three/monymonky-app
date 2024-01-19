@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 
 class DioClient {
-  static Dio createDio({required String baseUrl}) {
+  Dio createDio({required String baseUrl}) {
     Dio dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: const Duration(milliseconds: 5000),

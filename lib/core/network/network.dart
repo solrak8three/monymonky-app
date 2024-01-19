@@ -1,2 +1,2 @@
-export 'local/isar_config.dart';
-export 'remote/dio_client.dart';
+export 'local/local.dart';
+export 'remote/remote.dart';

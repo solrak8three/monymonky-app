@@ -4,7 +4,7 @@ import 'package:monymonky/core/network/network.dart';
 
 class APIDioClientNotion {
   late Dio dio;
-  APIDioClientNotion() : dio = DioClient.createDio(baseUrl: 'https://www.codigozen.es/api/notion');
+  APIDioClientNotion() : dio = DioClient().createDio(baseUrl: 'https://www.codigozen.es/api/notion');
 }
 
 

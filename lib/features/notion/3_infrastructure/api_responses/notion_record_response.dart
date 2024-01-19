@@ -1,26 +1,18 @@
-// To parse this JSON data, do
-//
-//     final expenseResponse = expenseResponseFromJson(jsonString);
-
 import 'dart:convert';
 
-ExpenseResponse expenseResponseFromJson(String str) => ExpenseResponse.fromJson(json.decode(str));
-
-String expenseResponseToJson(ExpenseResponse data) => json.encode(data.toJson());
-
-class ExpenseResponse {
+class NotionRecordResponse {
   final String origin;
   final List<Record> records;
   final double total;
 
-  ExpenseResponse({
+  NotionRecordResponse({
     required this.origin,
     required this.records,
     required this.total,
   });
 
 
-  factory ExpenseResponse.fromJson(Map<String, dynamic> json) => ExpenseResponse(
+  factory NotionRecordResponse.fromJson(Map<String, dynamic> json) => NotionRecordResponse(
     origin: json["origin"],
     records: List<Record>.from(json["records"].map((x) => Record.fromJson(x))),
     total: json["total"]?.toDouble(),

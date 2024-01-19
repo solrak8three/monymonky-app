@@ -121,7 +121,14 @@ class _RecordItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Text(record.tag);
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 15,
+        right: 20,
+        left: 20,
+      ),
+      child: NotionRecordCard(record: record,),
+    );
   }
 }
 
