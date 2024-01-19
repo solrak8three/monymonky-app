@@ -21,7 +21,7 @@ class EditAccountPage extends StatelessWidget {
         title: const Text('Editar cuenta'),
         leading: CustomLeading(
             route: AccountRoutes.accountList,
-            navigationStrategy: PopNavigation(),
+            navigationStrategy: GoNavigation(),
         ),
       ),
       body: const _BodyBloc(),

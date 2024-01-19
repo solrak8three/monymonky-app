@@ -2,8 +2,11 @@ import 'package:isar/isar.dart';
 import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/features/account_management/0_entity/account.dart';
 import 'package:monymonky/features/account_management/1_domain/datasources/account_datasource.dart';
+import 'package:monymonky/features/account_management/3_infrastructure/cache/accounts_cache.dart';
 
 class AccountDatasourceImpl implements AccountDatasource {
+
+  final AccountsCache _accountsCache = AccountsCache();
 
   @override
   Future<Account?> getAccount(String accountNumber) async {
@@ -19,8 +22,12 @@ class AccountDatasourceImpl implements AccountDatasource {
 
   @override
   Future<List<Account>> getAllAccounts() async {
+    if (_accountsCache.accounts != null) {
+      return _accountsCache.accounts!;
+    }
     final isar = await locator.getAsync<Isar>();
-    return await isar.accounts.where().findAll();
+    _accountsCache.accounts = await isar.accounts.where().findAll();
+    return _accountsCache.accounts!;
   }
 
   @override

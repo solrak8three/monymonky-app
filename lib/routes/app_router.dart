@@ -5,7 +5,7 @@ import 'package:monymonky/features/dashboard/router/router.dart';
 
 
 final appRouter = GoRouter(
-  initialLocation: DashboardRoutes.dashboard,
+  initialLocation: '/',
   routes: [
     ...getDashboardRoutes(),
    ...getAccountManagementRoutes()

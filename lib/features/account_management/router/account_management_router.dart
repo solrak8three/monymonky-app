@@ -4,22 +4,22 @@ import 'package:monymonky/features/account_management/router/router.dart';
 
 List<GoRoute> getAccountManagementRoutes() => [
   GoRoute(
-    path: InternalAccountRoutes.accounts,
+    path: AccountRoutes.accounts,
     name: AccountsPage.name,
     builder: (context, state) => const AccountsPage(),
   ),
   GoRoute(
-    path: InternalAccountRoutes.createAccount,
+    path: AccountRoutes.createAccount,
     name: CreateAccountPage.name,
     builder: (context, state) => const CreateAccountPage(),
   ),
   GoRoute(
-    path: InternalAccountRoutes.accountList,
+    path: AccountRoutes.accountList,
     name: AccountListPage.name,
     builder: (context, state) => const AccountListPage(),
   ),
   GoRoute(
-    path: InternalAccountRoutes.editACcount,
+    path: AccountRoutes.editACcount,
     name: EditAccountPage.name,
     builder: (context, state) {
       //final String accountNumber = state.pathParameters['accountNumber'] ?? '';
