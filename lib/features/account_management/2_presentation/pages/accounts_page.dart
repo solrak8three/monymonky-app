@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:monymonky/core/di/locator.dart';
 import 'package:monymonky/core/widgets/navigation/custom_leading.dart';
-import 'package:monymonky/features/account_management/2_presentation/bloc/account/account_bloc.dart';
 import 'package:monymonky/features/account_management/router/router.dart';
+import 'package:monymonky/features/notion/router/static_routes.dart';
 
 class AccountsPage extends StatelessWidget {
   static const name = 'accounts_page';
@@ -45,6 +44,13 @@ class _AccountsView extends StatelessWidget {
                 context.push(AccountRoutes.accountList);
               },
               child: const Text('Listar Cuentas'),
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () {
+                context.push(NotionRoutes.notionShowDatabase);
+              },
+              child: const Text('Notion'),
             )
           ],
         )
