@@ -1,5 +1,5 @@
 import 'package:monymonky/features/notion/0_entity/entity.dart';
 
-abstract class ExpenseDatasource {
+abstract class NotionDatasource {
   Future<List<NotionRecord>> getRecords();
 }
