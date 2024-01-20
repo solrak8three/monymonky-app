@@ -1,5 +1,5 @@
-import 'package:monymonky/features/notion/0_entity/entity.dart';
+import 'package:monymonky/features/notion/notion.dart';
 
 abstract class NotionRepository {
-  Future<List<NotionRecord>> getRecords();
+  Future<List<NotionRecord>> getRecords(final FilterDto filters);
 }

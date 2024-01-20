@@ -6,7 +6,7 @@ class GetAllRecordsUsecase {
 
   GetAllRecordsUsecase(this.notionRepository);
 
-  Future<List<NotionRecord>> call() async {
-    return notionRepository.getRecords();
+  Future<List<NotionRecord>> call(final FilterDto filters) async {
+    return notionRepository.getRecords(filters);
   }
 }

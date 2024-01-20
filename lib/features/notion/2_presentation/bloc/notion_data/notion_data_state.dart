@@ -16,7 +16,7 @@ class NotionDataError extends NotionDataState {
 }
 
 class NotionDataLoaded extends NotionDataState {
-  final List<NotionRecord> records;
+  final NotionRecordsDto records;
   const NotionDataLoaded({required this.records});
 }
 

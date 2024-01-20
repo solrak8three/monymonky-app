@@ -6,7 +6,7 @@ class NotionRepositoryImpl extends NotionRepository {
   NotionRepositoryImpl(this.notionDatasource);
 
   @override
-  Future<List<NotionRecord>> getRecords() {
-    return notionDatasource.getRecords();
+  Future<List<NotionRecord>> getRecords(final FilterDto filters) {
+    return notionDatasource.getRecords(filters);
   }
 }

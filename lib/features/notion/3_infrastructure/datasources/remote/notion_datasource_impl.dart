@@ -6,9 +6,12 @@ class NotionDatasourceImpl extends NotionDatasource {
   final APIDioClientNotion apiClientNotion = locator<APIDioClientNotion>();
 
   @override
-  Future<List<NotionRecord>> getRecords() async {
+  Future<List<NotionRecord>> getRecords(final FilterDto filters) async {
     try {
-      final response = await apiClientNotion.dio.post('/expense/json');
+      final response = await apiClientNotion.dio.post(
+        '/expense/notion',
+        data: filters.toJson(),
+      );
       if (response.statusCode != 200) {
         throw Exception('Failed to load records with status code: ${response.statusCode}');
       }

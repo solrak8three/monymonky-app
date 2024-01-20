@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:monymonky/core/widgets/navigation/custom_leading.dart';
 import 'package:monymonky/features/account_management/router/router.dart';
-import 'package:monymonky/features/notion/router/static_routes.dart';
 
 class AccountsPage extends StatelessWidget {
   static const name = 'accounts_page';
@@ -45,13 +44,6 @@ class _AccountsView extends StatelessWidget {
               },
               child: const Text('Listar Cuentas'),
             ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () {
-                context.push(NotionRoutes.notionShowDatabase);
-              },
-              child: const Text('Notion'),
-            )
           ],
         )
     );

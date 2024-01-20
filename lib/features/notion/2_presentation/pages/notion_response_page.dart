@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monymonky/core/core.dart';
-import 'package:monymonky/features/account_management/router/router.dart';
-import 'package:monymonky/features/notion/2_presentation/presentation.dart';
 import 'package:monymonky/features/notion/notion.dart';
 
 class NotionResponsePage extends StatefulWidget {
@@ -19,7 +18,7 @@ class _NotionResponsePageState extends State<NotionResponsePage> {
   @override
   void initState() {
     super.initState();
-    locator<NotionDataCubit>().fetchNotionDB();
+    locator<NotionDataCubit>().fetchNotionDB(FilterDto(removeFixed: false, onlyFixed: false));
   }
 
   @override
@@ -28,7 +27,7 @@ class _NotionResponsePageState extends State<NotionResponsePage> {
       appBar: AppBar(
         title: const Text('Notion Database'),
         leading: CustomLeading(
-          route: AccountRoutes.accounts,
+          route: '/',
           navigationStrategy: GoNavigation(),
         ),
       ),
@@ -38,27 +37,83 @@ class _NotionResponsePageState extends State<NotionResponsePage> {
 }
 
 
-class _NotionResponseView extends StatelessWidget {
+class _NotionResponseView extends ConsumerWidget {
   const _NotionResponseView();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final onlyFixedFilter = ref.watch(onlyFixedFilterProvider);
+    final removeFixedFilter = ref.watch(removeFixedFilterProvider);
+    final startDateFilter = ref.watch(startDateFilterProvider);
+    final endDateFilter = ref.watch(endDateFilterProvider);
     final sizeWidth = MediaQuery.of(context).size.width;
     return Container(
       width: sizeWidth,
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              locator<NotionDataCubit>().fetchNotionDB();
-            },
-            child: const Text('Get Data'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton.outlined(
+                  onPressed: () {
+                    final filter = FilterDto(
+                        onlyFixed: onlyFixedFilter,
+                        removeFixed: removeFixedFilter,
+                        startDate: startDateFilter,
+                        endDate: endDateFilter
+                    );
+                    locator<NotionDataCubit>().fetchNotionDB(filter);
+                  },
+                  icon: const Icon(Icons.refresh_outlined),
+              ),
+              const _TotalAmount(),
+              IconButton.outlined(
+                onPressed: () {
+                  _showFullScreenModal(context);
+                },
+                icon: const Icon(Icons.filter_alt),
+              ),
+            ],
           ),
           const SizedBox(height: 30,),
           const _ListViewBuilder(),
         ],
       ),
+    );
+  }
+
+  void _showFullScreenModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) => const FilterModal(),
+    );
+  }
+}
+
+class _TotalAmount extends StatelessWidget {
+  const _TotalAmount();
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorTheme = Theme.of(context).colorScheme;
+    return BlocBuilder<NotionDataCubit, NotionDataState>(
+        builder: (context, state) {
+          if (state is NotionDataLoaded) {
+            return Text(
+                '${state.records.amount}€',
+                  style: textTheme.titleSmall?.copyWith(
+                    color: colorTheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+            );
+
+          } else {
+            return const SizedBox();
+          }
+        },
     );
   }
 }
@@ -99,14 +154,14 @@ class _ErrorMessage extends StatelessWidget {
 }
 
 class _NotionDataResult extends StatelessWidget {
-  final List<NotionRecord> records;
-  const _NotionDataResult(this.records);
+  final NotionRecordsDto notionRecordsDto;
+  const _NotionDataResult(this.notionRecordsDto);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: records.length,
-      itemBuilder: (context, index) => _RecordItem(record: records[index]),
+      itemCount: notionRecordsDto.records.length,
+      itemBuilder: (context, index) => _RecordItem(record: notionRecordsDto.records[index]),
     );
   }
 }
@@ -122,11 +177,7 @@ class _RecordItem extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 15,
-        right: 20,
-        left: 20,
-      ),
+      padding: const EdgeInsets.only(bottom: 15,),
       child: NotionRecordCard(record: record,),
     );
   }
